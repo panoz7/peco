@@ -1,0 +1,13 @@
+RewriteEngine on
+
+RewriteRule ^locations/([A-Za-z0-9-])/nests/([A-Za-z0-9-])/?+$ nest.php?location_id=$1&nest_id=$2 [NC]
+RewriteRule ^locations/([A-Za-z0-9-])/nests/?+$ nest.php?location_id=$1 [NC]
+
+
+RewriteRule ^locations/([A-Za-z0-9-])/?+$ location.php?location_id=$1 [NC]
+RewriteRule ^locations/?$ location.php
+
+
+
+RewriteRule ^nests/([A-Za-z0-9-])/?+$ nest.php?nest_id=$1 [NC]
+RewriteRule ^nests/?$ nest.php
