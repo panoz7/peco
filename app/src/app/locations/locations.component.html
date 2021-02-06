@@ -1,0 +1,12 @@
+<!-- <<ul>
+  <li *ngFor="let location of locations"><a routerLink="/locations/{{location.id}}">{{location.name}}</a></li>
+</ul>> -->
+
+<table>
+    <tr><th>ID</th><th>Name</th><th>Actions</th></tr>
+    <tr *ngFor="let location of locations">
+        <td>{{location.id}}</td>
+        <td><a routerLink="/locations/{{location.id}}">{{location.name}}</a></td>
+        <td><a (click)="deleteLocation(location)">Delete</a></td>
+    </tr>
+</table>

@@ -1,0 +1,11 @@
+<div *ngIf = "location">
+
+<h3>{{ location.locationName }}</h3>
+
+<ul>
+    <li *ngFor="let nest of location.nests">Nest {{nest.nestName}}</li>
+</ul>
+
+</div>
+
+<button (click)='goBack()'>Back</button>
