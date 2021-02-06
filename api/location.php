@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $data = array();
 
         while ($row = $result->fetch_assoc()) {
-            $data[] = ["locationId" => $row['location_id'], "location_name" => $row['location_name']];
+            $data[] = ["id" => $row['location_id'], "name" => $row['location_name']];
         }
 
     }
@@ -43,6 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode($data);
 
 }
+
+
 
 // DELETE 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
@@ -70,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 
     $location_name = $mysqli->real_escape_string($data['location_name']);
-    $query = "INSERT INTO location (location_name) VALUES ('$location_name')";
+    $query = "INSERT INTO location (location_name) VALUES ('$name')";
 
     $logResult = $mysqli->query($query) OR DIE($mysqli->error);
     $log_id = $mysqli->insert_id;
