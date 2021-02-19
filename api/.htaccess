@@ -14,3 +14,4 @@ RewriteRule ^nests/?$ nest.php
 
 Header set Access-Control-Allow-Origin *
 Header set Access-Control-Allow-Methods *
+Header set Access-Control-Allow-Headers *

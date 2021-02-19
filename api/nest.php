@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $result = $mysqli->query($query) OR DIE($mysqli->error);
 
         $row = $result->fetch_assoc();
-        $data = ["nestId" => $row['nest_id'], "locationId" => $row['location_id'], "nestName" => $row['nest_name']];
+        $data = ["id" => $row['nest_id'], "locationId" => $row['location_id'], "name" => $row['nest_name']];
 
     }
 
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $result = $mysqli->query($query) OR DIE($mysqli->error);
 
         $row = $result->fetch_assoc();
-        $data = ["nestId" => $row['nest_id'], "locationId" => $row['location_id'], "nestName" => $row['nest_name']];
+        $data = ["id" => $row['nest_id'], "locationId" => $row['location_id'], "name" => $row['nest_name']];
     }
 
     // /nests
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 // POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // Accepts object with format: {nest_name: string, location_id: number}
+    // Accepts object with format: {name: string, location_id: number}
 
     $data = json_decode(file_get_contents('php://input'), true);
 
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result->num_rows > 0) {
 
-        $nest_name = $mysqli->real_escape_string($data['nest_name']);
+        $nest_name = $mysqli->real_escape_string($data['name']);
         $query = "INSERT INTO nest (location_id, nest_name) VALUES ('$data[location_id]', '$nest_name')";
 
         $logResult = $mysqli->query($query) OR DIE($mysqli->error);
@@ -107,6 +107,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-type: application/json');
     echo json_encode($returnData);
 
+}
+
+// PATCH
+if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
+
+    if (isset($_GET['nest_id'])) {
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $updates = array();
+
+        if ($data['name']) {
+            $name = $mysqli->real_escape_string($data['name']);
+            $updates[] = "nest_name = '".$name."'";
+        }
+
+        $query = "UPDATE nest SET ".implode(",",$updates)." WHERE nest_id = ".$_GET['nest_id'];
+        $result = $mysqli->query($query) OR DIE($mysqli->error);
+        $success = $result == 1;
+
+        $returnData = array('success' => $success);
+        $returnData['query'] = $query;
+
+    }
+
+    header('Content-type: application/json');
+    echo json_encode($returnData);
 }
 
 ?>
