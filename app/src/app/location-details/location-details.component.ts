@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { LocationDetails } from '../interfaces';
+import { Location as NgLocation } from '@angular/common';
+import { Location, Nest } from '../interfaces';
 import { LocationService } from '../location.service';
+import { NestService } from '../nest.service';
 
 @Component({
   selector: 'app-location-details',
@@ -11,12 +12,14 @@ import { LocationService } from '../location.service';
 })
 export class LocationDetailsComponent implements OnInit, OnChanges {
 
-  location: LocationDetails;
+  location: Location;
   isEditing: Boolean;
+  isAddingNest: Boolean;
 
   constructor(
     private locationService: LocationService,
-    private ngLocation: Location,
+    private nestService: NestService,
+    private ngLocation: NgLocation,
     private route: ActivatedRoute,
     private router: Router
     ) { }
@@ -59,6 +62,32 @@ export class LocationDetailsComponent implements OnInit, OnChanges {
   goBack() {
     this.ngLocation.back();
   }
+
+  onEditSubmit() {
+    this.isAddingNest = false;
+    this.getLocation();
+  }
+
+  async deleteNest(nest: Nest) {
+    const confirmDelete = window.confirm(`Are you sure you want to delete ${nest.name}?`)
+
+    if (confirmDelete) {
+      try {
+        await this.nestService.deleteNest(nest.id);
+        this.location.nests = this.location.nests.filter(n => n !== nest)
+      } catch(e) {
+        console.log(e);
+      }
+    }
+  }
+
+  onAddNestCancel() {
+    this.isAddingNest = false;
+  }
+
+  // showAddNest() {
+  //   this.isAddingLocation = true;
+  // }
 
 
 }

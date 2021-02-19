@@ -11,6 +11,7 @@ import { LocationDetailsComponent } from './location-details/location-details.co
 import { LocationsComponent } from './locations/locations.component';
 import { LocationEditComponent } from './location-edit/location-edit.component';
 import { NestDetailsComponent } from './nest-details/nest-details.component';
+import { NestEditComponent } from './nest-edit/nest-edit.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { NestDetailsComponent } from './nest-details/nest-details.component';
     LocationDetailsComponent,
     LocationsComponent,
     LocationEditComponent,
-    NestDetailsComponent
+    NestDetailsComponent,
+    NestEditComponent
   ],
   imports: [
     BrowserModule,

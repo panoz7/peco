@@ -1,1 +1,12 @@
-<p>nest-details works!</p>
+<div *ngIf = "nest">
+
+<h3>Name: {{ nest.name }}</h3>
+<button (click)='isEditing = true'>Edit Nest</button>
+<button (click)='deleteNest()'>Delete Nest</button>
+
+<app-nest-edit *ngIf="isEditing" [nest]="nest" (submitted)="endEdit()" (cancled)="endEdit()"></app-nest-edit>
+
+
+</div>
+
+<button (click)='goBack()'>Back</button>

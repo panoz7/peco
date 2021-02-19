@@ -26,9 +26,9 @@ export class LocationService {
     return this.http.get<Location[]>(`${this.baseUrl}/locations`).toPromise();
   }
 
-  getLocation(locationId: number): Observable<LocationDetails> {
+  getLocation(locationId: number): Observable<Location> {
     console.log(`getting location ${locationId}`)
-    return this.http.get<LocationDetails>(`${this.baseUrl}/locations/${locationId}`);
+    return this.http.get<Location>(`${this.baseUrl}/locations/${locationId}`);
   }
 
   deleteLocation(locationId: number): Promise<any> {

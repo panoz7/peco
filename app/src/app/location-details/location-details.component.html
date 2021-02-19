@@ -1,6 +1,6 @@
 <div *ngIf = "location">
 
-<h3>Name: {{ location.name }}</h3>
+<h3>{{ location.name }}</h3>
 
 <button (click)='deleteLocation()'>Delete</button>
 <button (click)='editLocation()'>Edit</button>
@@ -9,9 +9,28 @@
 <app-location-edit *ngIf="isEditing" (submitted)="closeEdit()" (cancled)="closeEdit()" [location]="location"></app-location-edit>
 
 
-<ul>
-    <li *ngFor="let nest of location.nests">Nest {{nest.name}}</li>
-</ul>
+
+<h4>Nests:</h4>
+<button (click)="isAddingNest = true" *ngIf="!isAddingNest">Add Nest</button>
+
+<app-nest-edit *ngIf="isAddingNest" [location]="location" (submitted)="onEditSubmit()" (cancled)="onAddNestCancel()"></app-nest-edit>
+<table>
+    <tr><th>ID</th><th>Name</th><th>Actions</th></tr>
+    <tr *ngFor="let nest of location.nests">
+        <td>{{nest.id}}</td>
+        <td><a routerLink="/nests/{{nest.id}}">{{nest.name}}</a></td>
+        <td>
+          <ul><li><a (click)="deleteNest(nest)">Delete</a></li></ul>
+        </td>
+    </tr>
+</table>
+
+
+
+
+<!-- <ul>
+    <li *ngFor="let nest of location.nests"><a routerLink="/nests/{{nest.id}}">{{nest.name}}</a></li>
+</ul> -->
 
 </div>
 
