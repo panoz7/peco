@@ -4,20 +4,27 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { FormsModule } from '@angular/forms';
+
 import { HttpClientModule } from '@angular/common/http';
 import { LocationDetailsComponent } from './location-details/location-details.component';
 import { LocationsComponent } from './locations/locations.component';
+import { LocationEditComponent } from './location-edit/location-edit.component';
+import { NestDetailsComponent } from './nest-details/nest-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LocationDetailsComponent,
-    LocationsComponent
+    LocationsComponent,
+    LocationEditComponent,
+    NestDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

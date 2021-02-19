@@ -1,0 +1,15 @@
+<h4 *ngIf="!edit">Add Location</h4>
+<h4 *ngIf="edit">Edit Location</h4>
+
+<div>
+    <form (ngSubmit)="onSubmit(heroForm)" #heroForm="ngForm" name='location-edit'>
+
+    <label>name:
+      <input [(ngModel)]="model.name" #name="ngModel" name="name" placeholder="name"/>
+    </label>
+
+    <button type='submit'>{{edit ? 'edit' : 'add'}}</button>
+    <button (click)="onCancel()">Cancel</button>
+
+    </form>
+</div>

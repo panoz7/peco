@@ -2,11 +2,26 @@
   <li *ngFor="let location of locations"><a routerLink="/locations/{{location.id}}">{{location.name}}</a></li>
 </ul>> -->
 
+<h3>Locations</h3>
+
+<button (click)="showAddLocation()" *ngIf="!addLocation">Add Location</button>
+
+<app-location-edit *ngIf="addLocation" (submitted)="onEditSubmit($event)" (cancled)="onAddCancled()" ></app-location-edit>
+<app-location-edit *ngIf="editLocation" (submitted)="onEditSubmit($event)" (cancled)="onEditCancled()" [location]="editLocation"></app-location-edit>
+
+<br/>
+
+
 <table>
     <tr><th>ID</th><th>Name</th><th>Actions</th></tr>
     <tr *ngFor="let location of locations">
         <td>{{location.id}}</td>
         <td><a routerLink="/locations/{{location.id}}">{{location.name}}</a></td>
-        <td><a (click)="deleteLocation(location)">Delete</a></td>
+        <td>
+          <ul><li><a (click)="deleteLocation(location)">Delete</a></li>
+          <li><a (click)="onEditLocation(location)">Edit</a></li></ul>
+        </td>
     </tr>
 </table>
+
+
